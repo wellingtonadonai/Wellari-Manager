@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: wellari-postgres
+    environment:
+      POSTGRES_DB: wellari_db
+      POSTGRES_USER: wellari
+      POSTGRES_PASSWORD: wp131018
+    ports:
+      - "5432:5432"
+    volumes:
+      - wellari_data:/var/lib/postgresql/data
+
+volumes:
+  wellari_data:
