@@ -1,4 +1,4 @@
-package com.wellari_manager;
+package com.wellari;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

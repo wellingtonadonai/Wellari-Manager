@@ -1,4 +1,4 @@
-package com.wellari_manager;
+package com.wellari;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
