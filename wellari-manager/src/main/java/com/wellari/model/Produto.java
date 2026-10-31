@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 
@@ -14,10 +17,13 @@ public class Produto {
     @Id
     private Long id;
 
+    @NotBlank
     private String nome;
+    @NotNull
     private BigDecimal preco;
     private String categoria;
     private boolean disponivel;
+    @PositiveOrZero
     private Integer quantidadeDeEstoque;
 
     public Produto() {
