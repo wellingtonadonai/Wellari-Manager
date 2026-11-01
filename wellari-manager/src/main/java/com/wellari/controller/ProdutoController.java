@@ -2,6 +2,9 @@ package com.wellari.controller;
 
 import com.wellari.model.Produto;
 import com.wellari.service.ProdutoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,18 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public Produto cadastrarProduto(@RequestBody Produto produto){
-        return service.cadastrarProduto(produto);
+    public ResponseEntity<Produto> cadastrarProduto(@Valid @RequestBody Produto produto){
+
+        Produto produtoSalvo = service.cadastrarProduto(produto);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(produtoSalvo);
+    }
+    @PutMapping("{id}")
+    public Produto atualizarProdutos( @PathVariable Long id,
+                                      @Valid @RequestBody Produto produtoAtualizado){
+
+        return service.atualizarProduto(id, produtoAtualizado);
     }
     @GetMapping
     public List<Produto> listarProdutos(){
