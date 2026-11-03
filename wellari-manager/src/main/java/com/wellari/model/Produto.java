@@ -15,13 +15,14 @@ public class Produto {
     @Id
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "O nome do produto é obrigatório")
     private String nome;
-    @NotNull
+    @NotNull(message = "O preço do produto é obrigatorio")
+    @PositiveOrZero(message = "O preço não pode ser negativo")
     private BigDecimal preco;
     private String categoria;
     private boolean disponivel;
-    @PositiveOrZero
+    @PositiveOrZero(message = "O preço não pode ser negativo")
     private Integer quantidadeDeEstoque;
 
     public Produto() {
@@ -48,9 +49,6 @@ public class Produto {
     }
 
     public void setPreco(BigDecimal preco) {
-        if (preco.compareTo(BigDecimal.ZERO) < 0 ){
-            throw new IllegalArgumentException("Preço não pode ser negativo");
-        }
             this.preco = preco;
 
     }

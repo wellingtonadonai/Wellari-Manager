@@ -28,11 +28,11 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(produtoSalvo);
     }
-    @PutMapping("{id}")
-    public Produto atualizarProdutos( @PathVariable Long id,
+    @PutMapping("/{id}")
+    public ResponseEntity <Produto> atualizarProdutos( @PathVariable Long id,
                                       @Valid @RequestBody Produto produtoAtualizado){
-
-        return service.atualizarProduto(id, produtoAtualizado);
+        Produto produto = service.atualizarProduto(id, produtoAtualizado);
+        return ResponseEntity.status(HttpStatus.OK).body(produtoAtualizado);
     }
     @GetMapping
     public List<Produto> listarProdutos(){
@@ -40,11 +40,12 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Produto> buscarPeloId(@PathVariable Long id){
+    public Produto buscarPeloId(@PathVariable Long id){
         return service.buscarProdutoPorId(id);
     }
     @DeleteMapping("/{id}")
-    public void deletarProduto(@PathVariable Long id){
+    public ResponseEntity <Void> deletarProduto(@PathVariable Long id){
         service.deletarProduto(id);
+        return ResponseEntity.noContent().build();
     }
 }

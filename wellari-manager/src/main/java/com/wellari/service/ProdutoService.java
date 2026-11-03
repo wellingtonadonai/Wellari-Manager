@@ -4,9 +4,7 @@ import com.wellari.exception.ProdutoNaoEncontradoException;
 import com.wellari.model.Produto;
 import com.wellari.repositories.ProdutoRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -39,17 +37,14 @@ public class ProdutoService {
 
     }
 
-    public Optional<Produto> buscarProdutoPorId(Long id){
-        return repository.findById(id);
+    public Produto buscarProdutoPorId(Long id){
+        return repository.findById(id).orElseThrow(()->
+        new ProdutoNaoEncontradoException("Produto não encontrado"));
     }
 
     public void deletarProduto(Long id){
 
-        Optional<Produto> produto = buscarProdutoPorId(id);
-
-        if (produto.isEmpty()) {
-            throw new ProdutoNaoEncontradoException("Produto não encontrado");
-        }
+        Produto produto = buscarProdutoPorId(id);
         repository.deleteById(id);
     }
 
