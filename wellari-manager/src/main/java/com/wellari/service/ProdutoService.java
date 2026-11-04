@@ -3,8 +3,10 @@ package com.wellari.service;
 import com.wellari.exception.ProdutoNaoEncontradoException;
 import com.wellari.model.Produto;
 import com.wellari.repositories.ProdutoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 
 @Service
 public class ProdutoService {
@@ -19,8 +21,8 @@ public class ProdutoService {
         return repository.save(produto);
     }
 
-    public List<Produto> listarProdutos(){
-        return repository.findAll();
+    public Page<Produto> listarProdutos(Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     public Produto atualizarProduto(Long id, Produto produtoAtualizado){

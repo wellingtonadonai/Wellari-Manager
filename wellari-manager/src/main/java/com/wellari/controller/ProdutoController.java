@@ -3,6 +3,8 @@ package com.wellari.controller;
 import com.wellari.model.Produto;
 import com.wellari.service.ProdutoService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +37,8 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoAtualizado);
     }
     @GetMapping
-    public List<Produto> listarProdutos(){
-        return service.listarProdutos();
+    public Page<Produto> listarProdutos(Pageable pageable){
+        return service.listarProdutos(pageable);
     }
 
     @GetMapping("/{id}")

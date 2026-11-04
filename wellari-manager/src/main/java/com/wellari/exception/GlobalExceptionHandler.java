@@ -2,6 +2,7 @@ package com.wellari.exception;
 import com.wellari.dto.ErroResposta;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -41,5 +42,20 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(resposta);
+    }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErroResposta> tratarJsonInvalido(HttpMessageNotReadableException exception){
+
+        List <String> mensagensJson = List.of("JSON inválido ou com formato incorreto");
+
+        ErroResposta erroResposta = new ErroResposta(
+        HttpStatus.BAD_REQUEST.value(),
+        mensagensJson,
+        LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(erroResposta);
+
     }
 }
